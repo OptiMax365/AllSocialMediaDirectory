@@ -186,70 +186,6 @@ body {
   background: var(--btn-hover);
 }
 
-/* Theme Picker Dropdown */
-.theme-picker-wrapper {
-  position: relative;
-}
-
-.theme-picker-btn {
-  width: 100%;
-  justify-content: center;
-}
-
-.theme-dropdown {
-  position: absolute;
-  left: 100%;
-  top: 0;
-  margin-left: 10px;
-  background: var(--card-bg);
-  border: 2px solid var(--border);
-  border-radius: 16px;
-  padding: 12px;
-  display: none;
-  flex-direction: column;
-  gap: 8px;
-  min-width: 200px;
-  z-index: 20;
-  box-shadow: 0 0 30px var(--glow-medium);
-}
-
-.theme-dropdown.show {
-  display: flex;
-}
-
-.theme-option {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 12px;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  border: 1px solid transparent;
-}
-
-.theme-option:hover {
-  border-color: var(--accent);
-  background: var(--btn-hover);
-}
-
-.theme-swatch {
-  width: 24px;
-  height: 24px;
-  border-radius: 6px;
-  border: 2px solid var(--border);
-  flex-shrink: 0;
-}
-
-.theme-name {
-  font-size: 0.9rem;
-  color: var(--text);
-}
-
-.theme-option.active {
-  border-color: var(--accent);
-  box-shadow: 0 0 15px var(--glow-medium);
-}
 
 /* === VERIFICATION BADGE === */
 .verified-badge {
@@ -568,7 +504,6 @@ body {
   .social-btn { padding: 18px 40px; font-size: 1.2rem; min-width: 260px; }
   .card-actions { left: 15px; }
   .action-btn { padding: 10px 16px; font-size: 0.95rem; min-width: 120px; }
-  .theme-dropdown { left: auto; right: 100%; margin-left: 0; margin-right: 10px; }
   .checklist-card { padding: 20px 15px; }
   .checklist-grid { grid-template-columns: 1fr; }
   .modal-content { padding: 25px 20px; }
@@ -584,7 +519,7 @@ body {
 
 /* Prevent text selection */
 .social-card { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
-.social-btn, .action-btn, .modal-btn, .theme-option { -webkit-user-select: auto; -moz-user-select: auto; -ms-user-select: auto; user-select: auto; }
+.social-btn, .action-btn, .modal-btn { -webkit-user-select: auto; -moz-user-select: auto; -ms-user-select: auto; user-select: auto; }
 </style>
 </head>
 
@@ -710,82 +645,6 @@ const socialMedia = [
   { name: "Second1st", url: "https://second1st.com" }
 ];
 
-// === 12 PRE-DEFINED THEMES (Same structure, different colors) ===
-const themes = {
-  emerald: {
-    name: "Emerald Green",
-    bg: "#02110b", cardBg: "#062416", accent: "#1ee66f", text: "#eafff2",
-    border: "#195135", popupBg: "rgba(2,18,12,0.98)", btnHover: "rgba(20,120,60,0.98)",
-    glowSoft: "rgba(30,230,111,0.2)", glowMedium: "rgba(30,230,111,0.4)", glowStrong: "rgba(30,230,111,0.7)"
-  },
-  ocean: {
-    name: "Ocean Blue",
-    bg: "#020b11", cardBg: "#061624", accent: "#3db4f2", text: "#e6f4ff",
-    border: "#193551", popupBg: "rgba(2,11,18,0.98)", btnHover: "rgba(20,60,120,0.98)",
-    glowSoft: "rgba(61,180,242,0.2)", glowMedium: "rgba(61,180,242,0.4)", glowStrong: "rgba(61,180,242,0.7)"
-  },
-  sunset: {
-    name: "Sunset Orange",
-    bg: "#110802", cardBg: "#241206", accent: "#ff6b35", text: "#fff2e6",
-    border: "#513019", popupBg: "rgba(18,8,2,0.98)", btnHover: "rgba(120,60,20,0.98)",
-    glowSoft: "rgba(255,107,53,0.2)", glowMedium: "rgba(255,107,53,0.4)", glowStrong: "rgba(255,107,53,0.7)"
-  },
-  royal: {
-    name: "Royal Purple",
-    bg: "#0b0211", cardBg: "#160624", accent: "#9d4edd", text: "#f2e6ff",
-    border: "#351951", popupBg: "rgba(11,2,18,0.98)", btnHover: "rgba(60,20,120,0.98)",
-    glowSoft: "rgba(157,78,221,0.2)", glowMedium: "rgba(157,78,221,0.4)", glowStrong: "rgba(157,78,221,0.7)"
-  },
-  cyber: {
-    name: "Cyber Pink",
-    bg: "#11020a", cardBg: "#24061a", accent: "#ff00aa", text: "#ffe6f4",
-    border: "#51193a", popupBg: "rgba(18,2,11,0.98)", btnHover: "rgba(120,20,80,0.98)",
-    glowSoft: "rgba(255,0,170,0.2)", glowMedium: "rgba(255,0,170,0.4)", glowStrong: "rgba(255,0,170,0.7)"
-  },
-  golden: {
-    name: "Golden Yellow",
-    bg: "#110d02", cardBg: "#241e06", accent: "#ffd700", text: "#fffde6",
-    border: "#514519", popupBg: "rgba(18,14,2,0.98)", btnHover: "rgba(120,100,20,0.98)",
-    glowSoft: "rgba(255,215,0,0.2)", glowMedium: "rgba(255,215,0,0.4)", glowStrong: "rgba(255,215,0,0.7)"
-  },
-  crimson: {
-    name: "Crimson Red",
-    bg: "#110204", cardBg: "#24060a", accent: "#e63946", text: "#ffe6e8",
-    border: "#51191f", popupBg: "rgba(18,2,4,0.98)", btnHover: "rgba(120,20,30,0.98)",
-    glowSoft: "rgba(230,57,70,0.2)", glowMedium: "rgba(230,57,70,0.4)", glowStrong: "rgba(230,57,70,0.7)"
-  },
-  teal: {
-    name: "Teal Cyan",
-    bg: "#021111", cardBg: "#062424", accent: "#00d4d4", text: "#e6ffff",
-    border: "#195151", popupBg: "rgba(2,18,18,0.98)", btnHover: "rgba(20,120,120,0.98)",
-    glowSoft: "rgba(0,212,212,0.2)", glowMedium: "rgba(0,212,212,0.4)", glowStrong: "rgba(0,212,212,0.7)"
-  },
-  lavender: {
-    name: "Lavender",
-    bg: "#0a0611", cardBg: "#1a1224", accent: "#b19cd9", text: "#f0e6ff",
-    border: "#3a2a51", popupBg: "rgba(11,8,18,0.98)", btnHover: "rgba(80,60,120,0.98)",
-    glowSoft: "rgba(177,156,217,0.2)", glowMedium: "rgba(177,156,217,0.4)", glowStrong: "rgba(177,156,217,0.7)"
-  },
-  neon: {
-    name: "Neon Lime",
-    bg: "#081102", cardBg: "#142406", accent: "#b8ff00", text: "#f4ffe6",
-    border: "#3a5119", popupBg: "rgba(8,18,2,0.98)", btnHover: "rgba(80,120,20,0.98)",
-    glowSoft: "rgba(184,255,0,0.2)", glowMedium: "rgba(184,255,0,0.4)", glowStrong: "rgba(184,255,0,0.7)"
-  },
-  magenta: {
-    name: "Deep Magenta",
-    bg: "#110209", cardBg: "#240616", accent: "#d63384", text: "#ffe6f0",
-    border: "#511935", popupBg: "rgba(18,2,10,0.98)", btnHover: "rgba(120,20,70,0.98)",
-    glowSoft: "rgba(214,51,132,0.2)", glowMedium: "rgba(214,51,132,0.4)", glowStrong: "rgba(214,51,132,0.7)"
-  },
-  arctic: {
-    name: "Arctic Blue",
-    bg: "#020911", cardBg: "#061a24", accent: "#7dd3fc", text: "#e6f7ff",
-    border: "#193551", popupBg: "rgba(2,10,18,0.98)", btnHover: "rgba(20,70,120,0.98)",
-    glowSoft: "rgba(125,211,252,0.2)", glowMedium: "rgba(125,211,252,0.4)", glowStrong: "rgba(125,211,252,0.7)"
-  }
-};
-
 const track = document.getElementById('carouselTrack');
 const container = document.getElementById('carouselContainer');
 const emailModal = document.getElementById('emailModal');
@@ -798,7 +657,6 @@ const seeAllModal = document.getElementById('seeAllModal');
 const seeAllModalClose = document.getElementById('seeAllModalClose');
 const seeAllGrid = document.getElementById('seeAllGrid');
 const CREATOR_EMAIL = "olusolaayodeji5112@gmail.com";
-let currentTheme = 'emerald';
 
 // === BUILD CAROUSEL ===
 function buildCarousel() {
@@ -833,19 +691,6 @@ function createSocialCard(name, url, isVerify = false) {
       <button class="action-btn see-all-btn" title="See All Platforms">
         📋 See All
       </button>
-      <div class="theme-picker-wrapper">
-        <button class="action-btn theme-picker-btn" title="Change Theme">
-          🎨 Themes
-        </button>
-        <div class="theme-dropdown" id="themeDropdown">
-          ${Object.entries(themes).map(([key, theme]) => `
-            <div class="theme-option ${key === currentTheme ? 'active' : ''}" data-theme="${key}">
-              <div class="theme-swatch" style="background: ${theme.accent}; border-color: ${theme.border}"></div>
-              <span class="theme-name">${theme.name}</span>
-            </div>
-          `).join('')}
-        </div>
-      </div>
     </div>
   `;
   
@@ -897,17 +742,7 @@ function createVerificationCard() {
     <div class="card-actions" id="cardActions">
       <button class="action-btn email-btn">✉️ Email Us</button>
       <button class="action-btn see-all-btn">📋 See All</button>
-      <div class="theme-picker-wrapper">
-        <button class="action-btn theme-picker-btn">🎨 Themes</button>
-        <div class="theme-dropdown" id="themeDropdown">
-          ${Object.entries(themes).map(([key, theme]) => `
-            <div class="theme-option ${key === currentTheme ? 'active' : ''}" data-theme="${key}">
-              <div class="theme-swatch" style="background: ${theme.accent}; border-color: ${theme.border}"></div>
-              <span class="theme-name">${theme.name}</span>
-            </div>
-          `).join('')}
-        </div>
-      </div>
+
     </div>
   `;
   return card;
@@ -954,7 +789,6 @@ container.addEventListener('touchend', () => {
 // === CARD CLICK: Show Actions ===
 document.addEventListener('click', (e) => {
   document.querySelectorAll('.card-actions').forEach(a => a.classList.remove('visible'));
-  document.querySelectorAll('.theme-dropdown').forEach(d => d.classList.remove('show'));
   const card = e.target.closest('.social-card');
   if(card && !e.target.closest('.social-btn') && !e.target.closest('.action-btn')) {
     card.querySelector('.card-actions')?.classList.add('visible');
@@ -962,52 +796,6 @@ document.addEventListener('click', (e) => {
   }
 });
 
-// === THEME PICKER TOGGLE ===
-document.addEventListener('click', (e) => {
-  if(e.target.closest('.theme-picker-btn')) {
-    e.stopPropagation();
-    const dropdown = e.target.closest('.theme-picker-wrapper').querySelector('.theme-dropdown');
-    document.querySelectorAll('.theme-dropdown').forEach(d => { if(d !== dropdown) d.classList.remove('show'); });
-    dropdown.classList.toggle('show');
-  }
-});
-document.addEventListener('click', (e) => { if(!e.target.closest('.theme-picker-wrapper')) document.querySelectorAll('.theme-dropdown').forEach(d => d.classList.remove('show')); });
-
-// === APPLY THEME ===
-function applyTheme(themeKey) {
-  const t = themes[themeKey];
-  if(!t) return;
-  currentTheme = themeKey;
-  document.documentElement.style.setProperty('--bg', t.bg);
-  document.documentElement.style.setProperty('--card-bg', t.cardBg);
-  document.documentElement.style.setProperty('--accent', t.accent);
-  document.documentElement.style.setProperty('--text', t.text);
-  document.documentElement.style.setProperty('--border', t.border);
-  document.documentElement.style.setProperty('--popup-bg', t.popupBg);
-  document.documentElement.style.setProperty('--btn-hover', t.btnHover);
-  document.documentElement.style.setProperty('--glow-soft', t.glowSoft);
-  document.documentElement.style.setProperty('--glow-medium', t.glowMedium);
-  document.documentElement.style.setProperty('--glow-strong', t.glowStrong);
-  
-  // Update theme picker UI
-  document.querySelectorAll('.theme-option').forEach(opt => {
-    opt.classList.toggle('active', opt.dataset.theme === themeKey);
-  });
-  sessionStorage.setItem('savedTheme', themeKey);
-}
-
-// Load saved theme
-const saved = sessionStorage.getItem('savedTheme');
-if(saved && themes[saved]) applyTheme(saved);
-
-// Theme selection
-document.addEventListener('click', (e) => {
-  const option = e.target.closest('.theme-option');
-  if(option) {
-    applyTheme(option.dataset.theme);
-    option.closest('.theme-dropdown').classList.remove('show');
-  }
-});
 
 // === EMAIL MODAL ===
 function openEmailModal() { emailModal.classList.add('active'); copyFeedback.classList.remove('show'); }
@@ -1047,8 +835,7 @@ document.addEventListener('keydown', (e) => {
   if(e.key === ' ' || e.key === 'Spacebar') { e.preventDefault(); track.style.animationPlayState = track.style.animationPlayState === 'paused' ? 'running' : 'paused'; }
 });
 
-console.log(`🎠 Carousel: ${cardsPerCopy} cards | ${totalDuration}s | 12 Themes | Swipe + Verified`);
-console.log(`✅ Brand Compliance: 100% Verified | Themes: ${Object.keys(themes).length} | Last: ${new Date().toLocaleDateString()}`);
+
 </script>
 </body>
 </html>
